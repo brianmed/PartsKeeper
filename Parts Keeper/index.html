@@ -86,8 +86,15 @@
         data-show="app.barcode.dataBeforeShow"
         data-title="Barcodes">
 
-        <ul id="theList" data-style="inset" data-type="group"></ul>
+        <!-- <ul id="theList" data-style="inset" data-type="group" data-source="app.barcode.dataSource" data-template="barcodeTemplate"></ul> -->
+        <ul id="theList"></ul>
     </div>
+    
+    <script type="text/x-kendo-template" id="barcodeTemplate">
+        <p>#: code #</p>
+</script>
+
+    
 <style>
     
 #aboutContainer {
@@ -122,6 +129,8 @@
             </div>
         </div>
 
+        <p>TabStrip</p>
+        
         <!--Footer-->
         <div data-role="footer">
             <div data-role="tabstrip">

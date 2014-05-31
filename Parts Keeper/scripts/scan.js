@@ -15,8 +15,7 @@
       function (result) {
           console.log(result);
         	app.db.handle.transaction(function(tx) {
-        		tx.executeSql("INSERT INTO barcode (code, format, cancelled) VALUES (?, ?, ?)", [result.text, result.format, result.cancelled], function () { return true }, function (tx, err) { console.log(err); alert("tx error") });
-                console.log("HERE");
+        		tx.executeSql("INSERT INTO barcode (code, format, cancelled) VALUES (?, ?, ?)", [result.text, result.format, result.cancelled], function () { return true; }, function (tx, err) { alert("tx error") });
     		});
       }, 
       function (error) {
