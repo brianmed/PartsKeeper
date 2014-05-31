@@ -13,7 +13,6 @@
         scan: function () {
    cordova.plugins.barcodeScanner.scan(
       function (result) {
-          console.log(result);
         	app.db.handle.transaction(function(tx) {
         		tx.executeSql("INSERT INTO barcode (code, format, cancelled) VALUES (?, ?, ?)", [result.text, result.format, result.cancelled], function () { return true; }, function (tx, err) { alert("tx error") });
     		});

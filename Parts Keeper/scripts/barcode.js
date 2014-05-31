@@ -24,8 +24,38 @@
      	var codeid = e.view.params.codeid;
          var code = e.view.params.code;
          
+         $('#edit-note').val("");
+         $('#edit-note').data("codeid", "");
+         $('#edit-note').data("noteid", "");
+         
          $('#the-barcode').val(code);
          $('#edit-note').data("codeid", codeid);
+         
+         app.db.handle.transaction(function(tx) {
+         tx.executeSql("SELECT * FROM note where barcode_id = ?", [codeid],
+                function(tx, result) {
+                    
+                    var note = result.rows.item(0)['note'];
+                    var id = result.rows.item(0)['id'];
+                    $('#edit-note').val(note);
+                    $('#edit-note').data("noteid", id);
+                    
+                }, function (tx, err) { alert("tx error") });             
+        });                  
+     },
+        
+     save: function () {
+     	   app.db.handle.transaction(function(tx) {
+                var id = $('#edit-note').data("noteid");
+                if (id) {
+        			tx.executeSql("UPDATE note SET note = ? WHERE id = ?", [$('#edit-note').val(), id], function () { return true; }, function (tx, err) { alert("update error") });                    
+                }
+                else {                                   
+        			tx.executeSql("INSERT INTO note (note, barcode_id) VALUES (?, ?)", [$('#edit-note').val(), $('#edit-note').data("codeid")], function () { return true; }, function (tx, err) { alert("insert error") });
+                }
+    		});
+         
+         kendo.mobile.application.navigate("#:back");
      },
         
      dataShow: function () {      
@@ -39,7 +69,6 @@
          tx.executeSql("SELECT * FROM barcode ORDER BY id DESC", [],
                 function(tx, result) {
                 for (i = 0; i < result.rows.length; i++) {
-                    console.log(i);
                     var code = result.rows.item(i)['code'];
                     var format = result.rows.item(i)['format'];
                     var id = result.rows.item(i)['id'];
@@ -48,7 +77,6 @@
                     
                     // data.push({ code: code });
                     }                    
-                    console.log(app.barcode.dataSource.data());
                     // $("#theList").destroy();
                     //  $("#theList").html("");
 
