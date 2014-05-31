@@ -64,36 +64,46 @@
     </style>
 
     </div>
-
-<script type="text/x-kendo-template" id="theListTemplate">
-    <ul id="httpList" class="km-widget km-listview km-listgroupinset">
-        #for (var i = 0; i < data.length; i++) {#
-        #var datum = data[i];#
-    <li class="km-group-container"><div class="km-group-title"><div class="km-text">
-
-    </div></div><ul class="km-list">
-
-            <li>#=datum.code#</li>
-
-    </ul></li>
-	#}#
-    </ul>
-</script>    
-    
     
     <div id="tabstrip-list"
         data-role="view"
-        data-show="app.barcode.dataBeforeShow"
+        data-init="app.barcode.dataInit"
+        data-show="app.barcode.dataShow"
         data-title="Barcodes">
 
-        <!-- <ul id="theList" data-style="inset" data-type="group" data-source="app.barcode.dataSource" data-template="barcodeTemplate"></ul> -->
         <ul id="theList"></ul>
     </div>
     
     <script type="text/x-kendo-template" id="barcodeTemplate">
-        <p>#: code #</p>
+        <a data-click="app.barcode.details" data-codeid="#:id#">#: code #</a> <a data-role="detailbutton" data-style="detaildisclose"></a>
 </script>
 
+<div data-role="view" id="edit-detailview" data-show="app.barcode.detailShow">
+    <header data-role="header">
+        <div data-role="navbar">
+            <a class="nav-button" data-align="left" data-role="backbutton" id="cancel">Cancel</a>
+            <span data-role="view-title">Details</span>
+            <a class="nav-button" data-align="right" data-role="button" id="done" data-click="save">Save</a>
+        </div>
+    </header>
+
+    <form>
+        <ul data-role="listview" data-style="inset" onclick="">
+            <li>
+                <label>Barcode
+                    <input id="the-barcode" type="text" disabled/>
+                </label>                
+            </li>            
+            <li>
+                <label>Note
+                    <input id="edit-note" type="text"/>
+                </label>
+            </li>
+        </ul>
+    </form>
+</div>
+
+    
     
 <style>
     
