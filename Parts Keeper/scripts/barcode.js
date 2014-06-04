@@ -58,7 +58,7 @@
          kendo.mobile.application.navigate("#:back");
      },
        
-     delete: function () {
+     "delete": function () {
      	   app.db.handle.transaction(function(tx) {
                 var codeid = $('#edit-note').data("codeid");
                 var noteid = $('#edit-note').data("noteid");
@@ -104,7 +104,7 @@
                 }, function (tx, err) { alert("tx error") });
              
         });         
-        },                
+        }                
     });
     
 	// dataSource.sync();

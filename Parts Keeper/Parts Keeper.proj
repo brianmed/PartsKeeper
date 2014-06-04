@@ -13,7 +13,7 @@
     <iOSStatusBarStyle>Default</iOSStatusBarStyle>
     <AndroidHardwareAcceleration>false</AndroidHardwareAcceleration>
     <WP8SupportedResolutions>ID_RESOLUTION_WVGA;ID_RESOLUTION_WXGA;ID_RESOLUTION_HD720P</WP8SupportedResolutions>
-    <BundleVersion>1.3</BundleVersion>
+    <BundleVersion>1.4</BundleVersion>
     <DisplayName>Parts Keeper</DisplayName>
     <Author />
     <Description>Parts Keeper</Description>
