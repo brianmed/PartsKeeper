@@ -57,6 +57,22 @@
          
          kendo.mobile.application.navigate("#:back");
      },
+       
+     delete: function () {
+     	   app.db.handle.transaction(function(tx) {
+                var codeid = $('#edit-note').data("codeid");
+                var noteid = $('#edit-note').data("noteid");
+                if (codeid) {
+        			tx.executeSql("DELETE FROM barcode WHERE id = ?", [codeid], function () { return true; }, function (tx, err) { alert("delete barcode error") });                    
+                }
+                if (noteid) {
+        			tx.executeSql("DELETE FROM note WHERE id = ?", [noteid], function () { return true; }, function (tx, err) { alert("delete note error") });                    
+                }
+                
+    		});         
+         
+            kendo.mobile.application.navigate("#:back");
+     },        	
         
      dataShow: function () {      
          
@@ -73,7 +89,7 @@
                     var format = result.rows.item(i)['format'];
                     var id = result.rows.item(i)['id'];
                     
-                    app.barcode.dataSource.add({id: id, code: code, format: format});                  
+                    app.barcode.dataSource.add({id: id, code: code, format: format, idx: i+1});                  
                     
                     // data.push({ code: code });
                     }                    

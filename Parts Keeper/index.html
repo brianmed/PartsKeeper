@@ -75,7 +75,7 @@
     </div>
     
     <script type="text/x-kendo-template" id="barcodeTemplate">
-        <a data-click="app.barcode.details" data-codeid="#:id#">#: code #</a> <a data-role="detailbutton" data-style="detaildisclose"></a>
+        <a data-click="app.barcode.details" data-codeid="#:id#">#:idx# - #: code #</a> <a data-role="detailbutton" data-style="detaildisclose"></a>
 </script>
 
 <style scoped>
@@ -131,8 +131,13 @@
                     <input type="text" id="edit-note" placeholder="Description" />
                 </label>
             </li>
+                <li>
+                    <center><a data-role="button" data-click="app.barcode.delete" style="font-size: 1.2em">Delete</a></center>
+                </li>            
         </ul>
     </form>
+
+
 </div>
 
     
