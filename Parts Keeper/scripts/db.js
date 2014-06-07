@@ -15,5 +15,9 @@
     document.addEventListener('deviceready', function () {
         app.db.init();
         app.db.createTables();
+    	app.db.handle.transaction(function(tx) {
+        		tx.executeSql("INSERT INTO barcode (code, format, cancelled) VALUES (?, ?, ?)", ['012334567', 'C', '0'], function () { return true; }, function (tx, err) { alert("tx error") });
+		});
+
     }, false);
 })();

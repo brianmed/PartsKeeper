@@ -1,7 +1,7 @@
 (function (global) {
     var app = global.app = global.app || {};  
     
-    app.db = {};
+    app.db = {};   
 
     document.addEventListener('deviceready', function () {
         navigator.splashscreen.hide();

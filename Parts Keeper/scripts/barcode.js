@@ -72,7 +72,38 @@
     		});         
          
             kendo.mobile.application.navigate("#:back");
-     },        	
+     },
+     pdfClose: function () {
+        			$("#modalview-pdf").kendoMobileModalView("close");                    
+                },
+        
+        
+     touchstart: function () {
+	 	$("#tap-delete").animate({
+    		opacity:'0.1',
+    	 });
+	 	$("#tap-delete").animate({
+    		opacity:'1',
+    	 });         
+
+     },
+     
+     pdf: function() {
+     var doc = new jsPDF();
+doc.text(20, 20, 'Hello world!');
+doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+doc.addPage();
+doc.text(20, 20, 'Do you like that?');
+         
+	var src = doc.output('datauristring');     
+         
+// doc.output('dataurlnewwindow');
+// doc.save('Test.pdf');    
+         
+     $("#modalview-pdf").kendoMobileModalView("open");
+     $('#the-pdf').attr('data', src);         
+     // $('#the-pdf').css("-webkit-transform", "scale(" + 1.63 + ")"); $('#the-pdf').css("zoom", "0.63")
+     },
         
      dataShow: function () {      
          

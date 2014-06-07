@@ -15,6 +15,16 @@
     <script src="scripts/scan.js"></script>    
     <script src="scripts/barcode.js"></script>    
     <script src="scripts/about.js"></script>
+    
+	<script src="scripts/lib/jspdf.js"></script>
+    <script src="scripts/lib/PDFjs/build/pdf.js"></script>
+    <script>
+        PDFJS.workerSrc = 'scripts/lib/PDFjs/build/pdf.worker.js';
+    </script>
+<!--	<script src="../jspdf.plugin.addimage.js"></script>
+	<script src="../jspdf.plugin.standard_fonts_metrics.js"></script>
+	<script src="../jspdf.plugin.split_text_to_size.js"></script>
+	<script src="../jspdf.plugin.from_html.js"></script>  -->  
 </head>
 <body>
     
@@ -109,7 +119,7 @@
       padding: .4em 0;
     }
 </style>
-    
+        
 <div data-role="view" id="edit-detailview" data-show="app.barcode.detailShow" class="appearance">
     <header data-role="header">
         <div data-role="navbar">
@@ -132,15 +142,16 @@
                 </label>
             </li>
                 <li>
-                    <center><div data-enable-swipe="1" data-swipe="app.barcode.delete" data-role="touch" style="font-size: 1.5em">Swipe to delete</div></center>
-                </li>            
+                    <center><div id="tap-pdf" data-enable-swipe="1" data-touchstart="app.barcode.pdf" data-role="touch" style="font-size: 1.5em">PDF</div></center>
+                </li>
+                <li>
+                    <center><div id="tap-delete" data-enable-swipe="1" data-touchstart="app.barcode.touchstart" data-min-hold="1800" data-hold="app.barcode.delete" data-role="touch" style="font-size: 1.5em">Hold to delete</div></center>
+                </li>                        
         </ul>
     </form>
 
 
-</div>
-
-    
+</div>    
     
 <style>
     
@@ -181,11 +192,27 @@
         <!--Footer-->
         <div data-role="footer">
             <div data-role="tabstrip">
-                <a href="#/" data-icon="camera">Scan</a>
+                <a href="#tabstrip-scan" data-icon="camera">Scan</a>
                 <a href="#tabstrip-list" data-icon="organize">List</a>
                 <a href="#tabstrip-about" data-icon="info">About</a>
             </div>
         </div>
     </div>
+
+
+    <div data-role="modalview" id="modalview-pdf" style="width: 90%; height: 70%;">
+        <div data-role="header">
+            <div data-role="navbar">
+            <a data-click="app.barcode.pdfClose" data-role="button" data-align="left">Cancel</a>            
+            <span>Parts</span>
+            <a data-bind="click: app.barcode.pdfSave" data-role="button" data-align="right">Save</a>                                                
+            </div>
+        </div>
+        
+        
+        <div style="overflow: scroll !important;-webkit-overflow-scrolling:touch !important;">
+    		<object id="the-pdf" type="application/pdf" style="width:1000px; height:10000px;"></object>       
+		</div>               
+    </div>       
 </body>
 </html>
