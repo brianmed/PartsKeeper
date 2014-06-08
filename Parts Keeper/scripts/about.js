@@ -9,5 +9,17 @@
 					var conHeight=container.offsetHeight;
 					inner.style.marginTop = (conHeight-inHeight)/2+'px';            
         },
+        
+        switchToAbout: function () {
+            app.application.navigate("#tabstrip-about");
+            var tabstrip = $('#about-tabstrip').data("kendoMobileTabStrip");
+			tabstrip.switchTo(3);
+        },
+        
+        switchToSettings: function () {
+            app.application.navigate("#tabstrip-settings");
+            var tabstrip = $('#settings-tabstrip').data("kendoMobileTabStrip");
+			tabstrip.switchTo(3);            
+        }
     });
 })();

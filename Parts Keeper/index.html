@@ -70,7 +70,7 @@
 
     </div>
     
-    <div id="tabstrip-report"
+    <div id="tabstrip-list"
         data-role="view"
         data-init="app.barcode.dataInit"
         data-show="app.barcode.dataShow"
@@ -192,11 +192,65 @@
 }    
 </style>
     
-    <div id="tabstrip-about" data-role="view" data-title="About" data-layout="tabstrip-layout" data-show="app.aboutPage.dataShow">
+    <div id="tabstrip-about" data-role="view" data-title="Settings" data-layout="tabstrip-about-layout" data-show="app.aboutPage.dataShow">
 		<div id="aboutContainer">           
         	<p id="information">Copyright &copy; Sparks and Magic<br>http://sparksandmagic.com</p>
         </div>
     </div>    
+    
+    <div id="tabstrip-settings" data-role="view" data-title="Settings" data-layout="tabstrip-settings-layout">
+        It's about time.
+    </div>    
+    
+    <div id="tabstrip-report" data-role="view" data-title="Report" data-layout="tabstrip-layout">
+        Report here.
+    </div>    
+    
+    <!--Layout-->
+    <div data-role="layout" data-id="tabstrip-about-layout">
+        <!--Header-->
+        <div data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+                <a data-click="app.aboutPage.switchToSettings" data-role="button" data-align="right">Settings</a>
+            </div>
+        </div>
+
+        <p>TabStrip</p>
+        
+        <!--Footer-->
+        <div data-role="footer">
+            <div id="about-tabstrip" data-role="tabstrip">
+                <a href="#tabstrip-scan" data-icon="camera">Scan</a>
+                <a href="#tabstrip-list" data-icon="organize">List</a>
+                <a href="#tabstrip-report" data-icon="action">Report</a>                
+                <a href="#tabstrip-settings" data-icon="settings">Settings</a>
+            </div>
+        </div>
+    </div>
+    
+    <!--Layout-->
+    <div data-role="layout" data-id="tabstrip-settings-layout">
+        <!--Header-->
+        <div data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+                <a data-click="app.aboutPage.switchToAbout" data-role="button" data-align="right">About</a>
+            </div>
+        </div>
+
+        <p>TabStrip</p>
+        
+        <!--Footer-->
+        <div data-role="footer">
+            <div id="settings-tabstrip" data-role="tabstrip">
+                <a href="#tabstrip-scan" data-icon="camera">Scan</a>
+                <a href="#tabstrip-list" data-icon="organize">List</a>
+                <a href="#tabstrip-report" data-icon="action">Report</a>                
+                <a href="#tabstrip-settings" data-icon="settings">Settings</a>
+            </div>
+        </div>
+    </div>
     
     <!--Layout-->
     <div data-role="layout" data-id="tabstrip-layout">
@@ -213,12 +267,12 @@
         <div data-role="footer">
             <div data-role="tabstrip">
                 <a href="#tabstrip-scan" data-icon="camera">Scan</a>
-                <a href="#tabstrip-report" data-icon="organize">Report</a>
-                <a href="#tabstrip-about" data-icon="info">About</a>
+                <a href="#tabstrip-list" data-icon="organize">List</a>
+                <a href="#tabstrip-report" data-icon="action">Report</a>                
+                <a href="#tabstrip-settings" data-icon="settings">Settings</a>
             </div>
         </div>
     </div>
-
 
     <div data-role="modalview" id="modalview-pdf" style="width: 90%; height: 70%;">
         <div data-role="header">

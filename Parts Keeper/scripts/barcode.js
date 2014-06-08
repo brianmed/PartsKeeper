@@ -79,10 +79,9 @@
             kendo.mobile.application.navigate("#:back");
      },
      pdfClose: function () {
-        			$("#modalview-pdf").kendoMobileModalView("close");                    
-                },
-        
-        
+         $("#modalview-pdf").kendoMobileModalView("close");                    
+     },
+                
      touchstart: function () {
 	 	$("#tap-delete").animate({
     		opacity:'0.1',
