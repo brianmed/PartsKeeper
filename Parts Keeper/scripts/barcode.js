@@ -8,7 +8,7 @@
         
 		dataSource: new kendo.data.DataSource({
 		  data: [],
-          group: { field: "date" }
+          group: { field: "prepared" }
 	    }),
         
      dataInit: function () {
@@ -24,53 +24,45 @@
         
      detailShow: function (e) {
          var codeid = e.view.params.codeid;
+                                     
+         $('#the-barcode').data("codeid", codeid);
 
          var code;
          app.db.handle.transaction(function(tx) {
-         tx.executeSql("SELECT code, date FROM barcode where id = ?", [codeid],
+         tx.executeSql("SELECT * FROM barcode where id = ?", [codeid],
                 function(tx, result) {                    
                     code = result.rows.item(0)['code'];
-                    date = result.rows.item(0)['date'];
-                   
+                    prepared = result.rows.item(0)['prepared'];
+                    invoiced = result.rows.item(0)['invoiced'];
+                    invoice_nbr = result.rows.item(0)['invoice_nbr'];
+					quantity = result.rows.item(0)['quantity'];
+                    reason = result.rows.item(0)['reason'];
+                    net_price = result.rows.item(0)['net_price'];
+                    
                     $('#the-barcode').val(code);
-                    $('#the-date').val(date);
-                }, function (tx, err) { alert("tx error") });             
+                    $('#date-prepared').val(prepared);
+                    $('#date-invoiced').val(invoiced);
+                    $('#invoice-nbr').val(invoice_nbr);
+                    $('#quantity').val(quantity);
+                    $('#reason').val(reason);
+                    $('#net-price').val(net_price);
+                    
+                }, function (tx, err) { alert("tx error: " + err.message) });             
          });
-
-         // $("#the-date").kendoDatePicker();
-         
-         $('#edit-note').val("");
-         $('#edit-note').data("codeid", "");
-         $('#edit-note').data("noteid", "");         
-                  
-         $('#edit-note').data("codeid", codeid);
-         
-         app.db.handle.transaction(function(tx) {
-         tx.executeSql("SELECT * FROM note where barcode_id = ?", [codeid],
-                function(tx, result) {
-                    
-                    var note = result.rows.item(0)['note'];
-                    var id = result.rows.item(0)['id'];
-                    $('#edit-note').val(note);
-                    $('#edit-note').data("noteid", id);
-                    
-                }, function (tx, err) { alert("tx error") });             
-        });                  
      },
         
      save: function () {
      	   app.db.handle.transaction(function(tx) {
-                var codeid = $('#edit-note').data("codeid");
-                var id = $('#edit-note').data("noteid");               
+                var codeid = $('#the-barcode').data("codeid");
                 
-    			tx.executeSql("UPDATE barcode SET date = ? WHERE id = ?", [$('#the-date').val(), codeid], function () { return true; }, function (tx, err) { alert("update error") });
-                
-                if (id) {
-        			tx.executeSql("UPDATE note SET note = ? WHERE id = ?", [$('#edit-note').val(), id], function () { return true; }, function (tx, err) { alert("update error") });                    
-                }
-                else {                                   
-        			tx.executeSql("INSERT INTO note (note, barcode_id) VALUES (?, ?)", [$('#edit-note').val(), $('#edit-note').data("codeid")], function () { return true; }, function (tx, err) { alert("insert error") });
-                }
+    			tx.executeSql("UPDATE barcode SET prepared = ?, invoiced = ?, invoice_nbr = ?, quantity = ?, reason = ?, net_price = ? WHERE id = ?",                 
+                	[
+                		$('#date-prepared').val(), $('#date-invoiced').val(), $('#invoice-nbr').val(), 
+                		$('#quantity').val(), $('#reason').val(), $('#net-price').val(),
+                		codeid
+                	], 
+                	function () { return true; }, function (tx, err) { alert("update error: " + err.message)
+                });
     		});
          
          kendo.mobile.application.navigate("#:back");
@@ -78,15 +70,10 @@
        
      "delete": function () {
      	   app.db.handle.transaction(function(tx) {
-                var codeid = $('#edit-note').data("codeid");
-                var noteid = $('#edit-note').data("noteid");
+                var codeid = $('#the-barcode').data("codeid");
                 if (codeid) {
         			tx.executeSql("DELETE FROM barcode WHERE id = ?", [codeid], function () { return true; }, function (tx, err) { alert("delete barcode error") });                    
-                }
-                if (noteid) {
-        			tx.executeSql("DELETE FROM note WHERE id = ?", [noteid], function () { return true; }, function (tx, err) { alert("delete note error") });                    
-                }
-                
+                }                
     		});         
          
             kendo.mobile.application.navigate("#:back");
@@ -138,12 +125,12 @@ doc.text(20, 20, 'Do you like that?');
                     var code = result.rows.item(i)['code'];
                     var format = result.rows.item(i)['format'];
                     var id = result.rows.item(i)['id'];
-                    var date = result.rows.item(i)['date'];
-                    if (!dates[date]) {
-                     	dates[date] = 0;   
+                    var prepared = result.rows.item(i)['prepared'];
+                    if (!dates[prepared]) {
+                     	dates[prepared] = 0;   
                     }
-                    dates[date]++;
-                    app.barcode.dataSource.add({id: id, code: code, format: format, idx: dates[date], date: date});                  
+                    dates[prepared]++;
+                    app.barcode.dataSource.add({id: id, code: code, format: format, idx: dates[prepared], prepared: prepared});                  
                     
                     // data.push({ code: code });
                     }                    
@@ -155,7 +142,7 @@ doc.text(20, 20, 'Do you like that?');
         	//var template = kendo.template();
 	        //var result = template(data); //Execute the template           
 			//$("#theList").html(result);                                
-                }, function (tx, err) { alert("tx error") });
+                }, function (tx, err) { alert("tx error: " + err.message) });
              
         });         
         }                

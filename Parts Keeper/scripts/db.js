@@ -6,8 +6,19 @@
         
         createTables: function() {
 		    app.db.handle.transaction(function(tx) {
-        		tx.executeSql("CREATE TABLE IF NOT EXISTS barcode (id INTEGER PRIMARY KEY ASC, code TEXT, format TEXT, date TEXT)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS note (id INTEGER PRIMARY KEY ASC, note TEXT, barcode_id REFERENCES barcode (id))");
+        		tx.executeSql(
+                	"CREATE TABLE IF NOT EXISTS barcode (" +
+                		"id INTEGER PRIMARY KEY ASC, " +
+                		"code TEXT, " +
+                		"format TEXT, " +
+                		"prepared TEXT, " +
+                		"invoiced TEXT, " +
+                		"invoice_nbr TEXT, " +
+                		"quantity INTEGER, " +
+                		"reason TEXT, " +
+                		"net_price TEXT" +
+                ")");
+                // tx.executeSql("CREATE TABLE IF NOT EXISTS note (id INTEGER PRIMARY KEY ASC, note TEXT, barcode_id REFERENCES barcode (id))");
     		});
 		}        
     });
@@ -22,18 +33,13 @@
         	    function pad(n){return n<10 ? '-0'+n : '-n'}
 		    	var str = d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate());
 
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334567', 'C', str], function () { return true; }, function (tx, err) { alert("tx error: " + err.message) });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334568', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334569', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334560', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334561', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334562', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334563', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334564', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334565', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334566', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['012334567', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", ['01233456a', 'C', str], function () { return true; }, function (tx, err) { alert("tx error") });
+        		tx.executeSql("INSERT INTO barcode (code, format, prepared, invoiced) VALUES (?, ?, ?, ?)", ['012334567', 'C', str, str], function () { return true; }, function (tx, err) { alert("tx error: " + err.message) });
+        		tx.executeSql("INSERT INTO barcode (code, format, prepared, invoiced) VALUES (?, ?, ?, ?)", ['012334568', 'C', str, str], function () { return true; }, function (tx, err) { alert("tx error") });
+        		tx.executeSql("INSERT INTO barcode (code, format, prepared, invoiced) VALUES (?, ?, ?, ?)", ['012334569', 'C', str, str], function () { return true; }, function (tx, err) { alert("tx error") });
+        		tx.executeSql("INSERT INTO barcode (code, format, prepared, invoiced) VALUES (?, ?, ?, ?)", ['012334560', 'C', str, str], function () { return true; }, function (tx, err) { alert("tx error") });
+        		tx.executeSql("INSERT INTO barcode (code, format, prepared, invoiced) VALUES (?, ?, ?, ?)", ['012334561', 'C', str, str], function () { return true; }, function (tx, err) { alert("tx error") });
+        		tx.executeSql("INSERT INTO barcode (code, format, prepared, invoiced) VALUES (?, ?, ?, ?)", ['012334562', 'C', str, str], function () { return true; }, function (tx, err) { alert("tx error") });
+        		tx.executeSql("INSERT INTO barcode (code, format, prepared, invoiced) VALUES (?, ?, ?, ?)", ['012334563', 'C', str, str], function () { return true; }, function (tx, err) { alert("tx error") });
 		});            
         }
         
