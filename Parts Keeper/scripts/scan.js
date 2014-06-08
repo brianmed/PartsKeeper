@@ -15,7 +15,12 @@
       function (result) {
             if (result.text) {
         	app.db.handle.transaction(function(tx) {
-        		tx.executeSql("INSERT INTO barcode (code, format, cancelled) VALUES (?, ?, ?)", [result.text, result.format, result.cancelled], function () { return true; }, function (tx, err) { alert("tx error") });
+                                var d = new Date();
+                
+       	    function pad(n){return n<10 ? '-0'+n : '-n'}
+		    	var str = d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate());
+            
+        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", [result.text, result.format, str], function () { return true; }, function (tx, err) { alert("tx error") });
     		});
             }
       }, 

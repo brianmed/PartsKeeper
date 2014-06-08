@@ -4,7 +4,6 @@
     <title></title>
     <meta charset="utf-8" />
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
-    <link href="styles/main.css" rel="stylesheet" />
 
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
@@ -17,10 +16,6 @@
     <script src="scripts/about.js"></script>
     
 	<script src="scripts/lib/jspdf.js"></script>
-    <script src="scripts/lib/PDFjs/build/pdf.js"></script>
-    <script>
-        PDFJS.workerSrc = 'scripts/lib/PDFjs/build/pdf.worker.js';
-    </script>
 <!--	<script src="../jspdf.plugin.addimage.js"></script>
 	<script src="../jspdf.plugin.standard_fonts_metrics.js"></script>
 	<script src="../jspdf.plugin.split_text_to_size.js"></script>
@@ -75,7 +70,7 @@
 
     </div>
     
-    <div id="tabstrip-list"
+    <div id="tabstrip-report"
         data-role="view"
         data-init="app.barcode.dataInit"
         data-show="app.barcode.dataShow"
@@ -85,7 +80,7 @@
     </div>
     
     <script type="text/x-kendo-template" id="barcodeTemplate">
-        <a data-click="app.barcode.details" data-codeid="#:id#">#:idx# - #: code #</a> <a data-role="detailbutton" data-style="detaildisclose"></a>
+        <a class="touch" data-click="app.barcode.details" data-codeid="#:id#">#:idx# - #: code #</a> <a data-role="detailbutton" data-style="detaildisclose"></a>
 </script>
 
 <style scoped>
@@ -130,12 +125,17 @@
     </header>
 
     <form>
-        <ul data-role="listview" data-style="inset" onclick="">
+        <ul data-role="listview" data-style="inset" onclick="">            
             <li>
                 <label>Barcode
                     <input id="the-barcode" type="text" disabled/>
                 </label>                
             </li>            
+            <li>
+                <label>Date
+            	        <input id="the-date" type="date" />
+                </label>                
+            </li>                        
             <li>
                 <label>Note
                     <input type="text" id="edit-note" placeholder="Description" />
@@ -193,7 +193,7 @@
         <div data-role="footer">
             <div data-role="tabstrip">
                 <a href="#tabstrip-scan" data-icon="camera">Scan</a>
-                <a href="#tabstrip-list" data-icon="organize">List</a>
+                <a href="#tabstrip-report" data-icon="organize">Report</a>
                 <a href="#tabstrip-about" data-icon="info">About</a>
             </div>
         </div>
@@ -203,7 +203,7 @@
     <div data-role="modalview" id="modalview-pdf" style="width: 90%; height: 70%;">
         <div data-role="header">
             <div data-role="navbar">
-            <a data-click="app.barcode.pdfClose" data-role="button" data-align="left">Cancel</a>            
+            <a data-click="app.barcode.pdfClose" data-role="button" data-align="left">Close</a>            
             <span>Parts</span>
             <a data-bind="click: app.barcode.pdfSave" data-role="button" data-align="right">Save</a>                                                
             </div>

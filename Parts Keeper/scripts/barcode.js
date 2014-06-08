@@ -2,33 +2,47 @@
     app.barcode = kendo.observable({
      
         details: function (e) {
-            var codeid = $(e.touch.currentTarget).children(":first").data("codeid");
-            kendo.mobile.application.navigate("#edit-detailview?codeid=" + codeid + "&code=" + $(e.touch.currentTarget).text());
+            var codeid = $(e.touch.currentTarget).parent().children(":first").data("codeid");            
+            kendo.mobile.application.navigate("#edit-detailview?codeid=" + codeid);
         },
         
 		dataSource: new kendo.data.DataSource({
-		  data: []
+		  data: [],
+          group: { field: "date" }
 	    }),
         
      dataInit: function () {
-            $("#theList").kendoMobileListView({ dataSource: app.barcode.dataSource, template: $("#barcodeTemplate").html() })
-            .kendoTouch({
-            filter: ">li",
+            $("#theList").kendoMobileListView({ 
+            dataSource: app.barcode.dataSource, 
+            template: $("#barcodeTemplate").html()
+            }).kendoTouch({
+            filter: ".touch",
             enableSwipe: false,
             tap: app.barcode.details
-        });
-     	  
+        });     	  
      },
         
      detailShow: function (e) {
-     	var codeid = e.view.params.codeid;
-         var code = e.view.params.code;
+         var codeid = e.view.params.codeid;
+
+         var code;
+         app.db.handle.transaction(function(tx) {
+         tx.executeSql("SELECT code, date FROM barcode where id = ?", [codeid],
+                function(tx, result) {                    
+                    code = result.rows.item(0)['code'];
+                    date = result.rows.item(0)['date'];
+                   
+                    $('#the-barcode').val(code);
+                    $('#the-date').val(date);
+                }, function (tx, err) { alert("tx error") });             
+         });
+
+         // $("#the-date").kendoDatePicker();
          
          $('#edit-note').val("");
          $('#edit-note').data("codeid", "");
-         $('#edit-note').data("noteid", "");
-         
-         $('#the-barcode').val(code);
+         $('#edit-note').data("noteid", "");         
+                  
          $('#edit-note').data("codeid", codeid);
          
          app.db.handle.transaction(function(tx) {
@@ -46,7 +60,11 @@
         
      save: function () {
      	   app.db.handle.transaction(function(tx) {
-                var id = $('#edit-note').data("noteid");
+                var codeid = $('#edit-note').data("codeid");
+                var id = $('#edit-note').data("noteid");               
+                
+    			tx.executeSql("UPDATE barcode SET date = ? WHERE id = ?", [$('#the-date').val(), codeid], function () { return true; }, function (tx, err) { alert("update error") });
+                
                 if (id) {
         			tx.executeSql("UPDATE note SET note = ? WHERE id = ?", [$('#edit-note').val(), id], function () { return true; }, function (tx, err) { alert("update error") });                    
                 }
@@ -119,8 +137,9 @@ doc.text(20, 20, 'Do you like that?');
                     var code = result.rows.item(i)['code'];
                     var format = result.rows.item(i)['format'];
                     var id = result.rows.item(i)['id'];
+                    var date = result.rows.item(i)['date'];
                     
-                    app.barcode.dataSource.add({id: id, code: code, format: format, idx: i+1});                  
+                    app.barcode.dataSource.add({id: id, code: code, format: format, idx: i+1, date: date});                  
                     
                     // data.push({ code: code });
                     }                    
