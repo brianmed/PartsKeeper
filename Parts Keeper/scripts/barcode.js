@@ -133,13 +133,17 @@ doc.text(20, 20, 'Do you like that?');
          app.db.handle.transaction(function(tx) {
          tx.executeSql("SELECT * FROM barcode ORDER BY id DESC", [],
                 function(tx, result) {
+                var dates = {};
                 for (i = 0; i < result.rows.length; i++) {
                     var code = result.rows.item(i)['code'];
                     var format = result.rows.item(i)['format'];
                     var id = result.rows.item(i)['id'];
                     var date = result.rows.item(i)['date'];
-                    
-                    app.barcode.dataSource.add({id: id, code: code, format: format, idx: i+1, date: date});                  
+                    if (!dates[date]) {
+                     	dates[date] = 0;   
+                    }
+                    dates[date]++;
+                    app.barcode.dataSource.add({id: id, code: code, format: format, idx: dates[date], date: date});                  
                     
                     // data.push({ code: code });
                     }                    
