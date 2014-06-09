@@ -94,10 +94,13 @@
      
      pdf: function() {
      var doc = new jsPDF();
-doc.text(20, 20, 'Hello world!');
-doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
-doc.addPage();
-doc.text(20, 20, 'Do you like that?');
+     
+     doc.rec(1, 1, 20, 20);
+         
+//doc.text(20, 20, 'Hello world!');
+//doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+//doc.addPage();
+//doc.text(20, 20, 'Do you like that?');
          
 	var src = doc.output('datauristring');     
          
@@ -120,7 +123,7 @@ doc.text(20, 20, 'Do you like that?');
          tx.executeSql("SELECT * FROM barcode ORDER BY id DESC", [],
                 function(tx, result) {
                 var dates = {};
-                for (i = 0; i < result.rows.length; i++) {
+                for (var i = 0; i < result.rows.length; i++) {
                     var code = result.rows.item(i)['code'];
                     var format = result.rows.item(i)['format'];
                     var id = result.rows.item(i)['id'];

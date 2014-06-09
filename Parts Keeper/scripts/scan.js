@@ -20,7 +20,7 @@
        	    function pad(n){return n<10 ? '-0'+n : '-n'}
 		    	var str = d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate());
             
-        		tx.executeSql("INSERT INTO barcode (code, format, date) VALUES (?, ?, ?)", [result.text, result.format, str], function () { return true; }, function (tx, err) { alert("tx error") });
+        		tx.executeSql("INSERT INTO barcode (code, format, prepared) VALUES (?, ?, ?)", [result.text, result.format, str], function () { return true; }, function (tx, err) { alert("tx error") });
     		});
             }
       }, 

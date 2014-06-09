@@ -14,6 +14,7 @@
     <script src="scripts/scan.js"></script>    
     <script src="scripts/barcode.js"></script>    
     <script src="scripts/about.js"></script>
+    <script src="scripts/report.js"></script>
     
 	<script src="scripts/lib/jspdf.js"></script>
 <!--	<script src="../jspdf.plugin.addimage.js"></script>
@@ -81,7 +82,11 @@
     
     <script type="text/x-kendo-template" id="barcodeTemplate">
         <a class="touch" data-click="app.barcode.details" data-codeid="#:id#">#:idx# - #: code #</a> <a data-role="detailbutton" data-style="detaildisclose"></a>
-</script>
+	</script>
+    
+    <script type="text/x-kendo-template" id="reportTemplate">
+        <a class="touch" data-click="app.report.generate" data-prepared="#:prepared#">#:idx# - #: prepared #</a> <a data-role="detailbutton" data-style="detaildisclose"></a>
+	</script>
 
 <style scoped>
     .km-root .appearance .km-listview label
@@ -161,17 +166,36 @@
                     <input type="text" id="net-price" />
                 </label>
             </li>
+            	<!--
                 <li>
                     <center><div id="tap-pdf" data-enable-swipe="1" data-touchstart="app.barcode.pdf" data-role="touch" style="font-size: 1.5em">PDF</div></center>
                 </li>
+            	-->
                 <li>
                     <center><div id="tap-delete" data-enable-swipe="1" data-touchstart="app.barcode.touchstart" data-min-hold="1800" data-hold="app.barcode.delete" data-role="touch" style="font-size: 1.5em">Hold to delete</div></center>
                 </li>                        
         </ul>
     </form>
-
-
 </div>    
+    
+<div data-role="view" id="edit-prepared" class="appearance">
+    <header data-role="header">
+        <div data-role="navbar">
+            <span data-role="view-title">Dates</span>
+        </div>
+    </header>
+
+    <form>
+        <ul data-role="listview" data-style="inset" onclick="">            
+                <li>
+                    <center><div id="tap-pdf" data-enable-swipe="1" data-touchstart="app.report.showPdf" data-role="touch" style="font-size: 1.5em">View PDF</div></center>
+                </li>
+                <li>
+                    <center><div id="tap-print" data-enable-swipe="1" data-touchstart="app.report.emailPdf" data-role="touch" style="font-size: 1.5em">Email PDF</div></center>
+                </li>
+        </ul>
+    </form>
+</div>           
     
 <style>
     
@@ -199,11 +223,11 @@
     </div>    
     
     <div id="tabstrip-settings" data-role="view" data-title="Settings" data-layout="tabstrip-settings-layout">
-        It's about time.
+        Settings here.
     </div>    
     
-    <div id="tabstrip-report" data-role="view" data-title="Report" data-layout="tabstrip-layout">
-        Report here.
+    <div id="tabstrip-report" data-role="view" data-title="Report" data-layout="tabstrip-layout" data-show="app.report.dataShow" data-init="app.report.dataInit">
+        <ul id="datesPrepared"></ul>
     </div>    
     
     <!--Layout-->
