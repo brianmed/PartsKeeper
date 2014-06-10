@@ -29,10 +29,11 @@
         	});         
         },
 
-     showPdf: function () {
+     emailPdf: function () {
      var doc = new jsPDF("portrait", "in", "letter");
      
-     doc.rect(1, 1, 10, 10);
+     doc.setLineWidth(0.05);
+     doc.rect(1, 1, 7, 9);
          
 //doc.text(20, 20, 'Hello world!');
 //doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
@@ -43,13 +44,20 @@
          
 // doc.output('dataurlnewwindow');
 // doc.save('Test.pdf');    
-       
-     window.location.href = "mailto:ron@medleyautobody.com?subject=Prepared%20Hello&body=" + src;
+     
+	window.plugin.email.open({
+    	to:      ['pub-pdf@bmedley.org'],
+	    subject: 'Prepared PDF',
+    	body:    'Parts return',
+        attachments: ["base64:parts_return.pdf//" + btoa(src)]
+	});
+             
+    // window.location.href = "mailto:ron@medleyautobody.com?subject=Prepared%20Hello&body=" + src;
      // window.open(src, '_blank');
          
      //$("#modalview-pdf").kendoMobileModalView("open");
      //$('#the-pdf').attr('data', src);         
-     // $('#the-pdf').css("-webkit-transform", "scale(" + 1.63 + ")"); $('#the-pdf').css("zoom", "0.63")
+     // $('#the-pdf').css("-webkdit-transform", "scale(" + 1.63 + ")"); $('#the-pdf').css("zoom", "0.63")
      },         
         
      dataInit: function () {

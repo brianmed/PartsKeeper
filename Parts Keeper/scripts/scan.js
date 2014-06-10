@@ -1,13 +1,9 @@
 (function () {
     app.scan = kendo.observable({
-        dataShow: function () {            
-					var container = document.getElementById("the");
+        dataShow: function () {
 					var inner = document.getElementById("middle");
-					var inHeight = inner.offsetHeight;
-					container.style.height=(window.innerHeight);
-					container.style.width=window.innerWidth;
-					var conHeight=container.offsetHeight;
-					inner.style.marginTop = (conHeight-inHeight)/2+'px';   
+            		// alert($('#middle').height() + " :: " + $('#btn-scan').height() + " :: " + $('#tabstrip-scan').height());
+            		inner.style.marginTop = (($('#tabstrip-scan').height() / 2) - $('#middle').height())  + "px";
         },
         
         scan: function () {

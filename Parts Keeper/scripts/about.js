@@ -1,13 +1,9 @@
 (function () {
     app.aboutPage = kendo.observable({
         dataShow: function () {            
-					var container = document.getElementById("aboutContainer");
 					var inner = document.getElementById("information");
-					var inHeight = inner.offsetHeight;
-					container.style.height=(window.innerHeight);
-					container.style.width=window.innerWidth;
-					var conHeight=container.offsetHeight;
-					inner.style.marginTop = (conHeight-inHeight)/2+'px';            
+            		// alert($('#middle').height() + " :: " + $('#btn-scan').height() + " :: " + $('#tabstrip-scan').height());
+            		inner.style.marginTop = (($('#tabstrip-about').height() / 2) - $('#information').height())  + "px";
         },
         
         switchToAbout: function () {

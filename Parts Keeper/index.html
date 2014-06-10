@@ -25,12 +25,6 @@
 <body>
     
 <style>    
-	#the {
-		width: 100%;
-		height: 100%;
-		position:absolute;
-	}
-	    
 	#middle {
 		text-align: center;
 	}    
@@ -45,19 +39,18 @@
                 <span data-role="view-title"></span>
             </div>
         </header>
-        <div id="the">
+
             <div id="middle">
             <ul data-role="listview" data-type="group" data-style="inset" >
         <li>
             <ul>
                 <li>
-                    <i></i> <a data-role="button" data-click="app.scan.scan" style="font-size: 1.2em">Scan</a>
+                    <i></i> <a id="btn-scan" data-role="button" data-click="app.scan.scan" style="font-size: 1.2em">Scan</a>
                 </li>
             </ul>
         </li>
                 </ul>
-                </div>
-                </div>
+            </div>
         
             <style scoped>
         .buttonAppearance .km-button:not(.km-back)
@@ -188,22 +181,18 @@
     <form>
         <ul data-role="listview" data-style="inset" onclick="">            
                 <li>
-                    <center><div id="tap-pdf" data-enable-swipe="1" data-touchstart="app.report.showPdf" data-role="touch" style="font-size: 1.5em">View PDF</div></center>
+                    <center><div id="tap-pdf" data-enable-swipe="1" data-touchstart="app.report.emailPdf" data-role="touch" style="font-size: 1.5em">Email PDF</div></center>
                 </li>
-                <li>
-                    <center><div id="tap-print" data-enable-swipe="1" data-touchstart="app.report.emailPdf" data-role="touch" style="font-size: 1.5em">Email PDF</div></center>
+                <!--
+            	<li>
+                    <center><div id="tap-print" data-enable-swipe="1" data-touchstart="app.report.showlPdf" data-role="touch" style="font-size: 1.5em">View PDF</div></center>
                 </li>
+            	-->
         </ul>
     </form>
 </div>           
     
 <style>
-    
-#aboutContainer {
-	width: 100%;
-	height: 100%;
-	position:absolute;
-}
     
 #information {
 	padding: 0.5em;
