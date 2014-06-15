@@ -115,7 +115,7 @@
      dataShow: function () {      
          
          //var data = new Array();
-         //console.log("dataBeforeShow");
+         //console.log("dataShow");
          
          app.barcode.dataSource.data([]);
          

@@ -16,6 +16,15 @@
             app.application.navigate("#tabstrip-settings");
             var tabstrip = $('#settings-tabstrip').data("kendoMobileTabStrip");
 			tabstrip.switchTo(3);            
+        },
+        
+        showSettings: function () {
+            $('#the-email').val(window.localStorage.getItem("email"));
+        },
+        
+        saveSettings: function () {
+             window.localStorage.setItem("email", $('#the-email').val());
+            app.application.navigate("#:back");
         }
     });
 })();

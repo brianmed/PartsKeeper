@@ -29,7 +29,13 @@
         	});         
         },
 
-     emailPdf: function () {
+     showPrepared: function (e) {
+         var prepared = e.view.params.prepared;
+                                     
+         $('#tap-pdf').data("prepared", prepared);
+     },
+     
+     startPdf: function () {
      var doc = new jsPDF("portrait", "in", "letter");
 
           doc.setLineWidth(0.01);
@@ -96,7 +102,7 @@
      doc.text("QUANTITY", 4.2, 3.2);
      doc.text("REASON", 5.55, 3.2);
      doc.text("NET PRICE", 6.9, 3.2);
-     
+
      doc.rect(0.8, 3.6, 6.9, 4.4);
      doc.rect(0.8, 3.9, 6.9, 4.1);
      doc.rect(0.8, 4.2, 6.9, 3.8);
@@ -123,25 +129,54 @@
      doc.rect(1.0, 9.4, 6.8, 0);
      doc.rect(1.0, 9.7, 6.8, 0);
      doc.rect(1.0, 10.0, 6.8, 0);
-                       
+
+         return doc;
+     },
+        
+     emailPdf: function () {
+	 	$("#tap-pdf").animate({
+    		opacity:'0.1',
+    	 });
+	 	$("#tap-pdf").animate({
+    		opacity:'1',
+    	 });         
+
+
+         app.db.handle.transaction(function(tx) {
+             var prepared = $('#tap-pdf').data("prepared");
+         tx.executeSql("SELECT * FROM barcode where prepared = ?", [prepared],
+                function(tx, result) {
+                    var y = [3.5, 3.8, 4.1, 4.4, 4.7, 5.0, 5.3, 5.6, 5.9, 6.2, 6.5, 6.8, 7.1, 7.4, 7.65];
+                    var doc = app.report.startPdf();
+                    
+					for (var i = 0; i < result.rows.length; i++) {
+                    code = result.rows.item(i)['code'];
+                    prepared = result.rows.item(i)['prepared'];
+                    invoiced = result.rows.item(i)['invoiced'];
+                    invoice_nbr = result.rows.item(i)['invoice_nbr'] || "";
+					quantity = result.rows.item(i)['quantity'] || "";
+                    reason = result.rows.item(i)['reason'] || "";
+                    net_price = result.rows.item(i)['net_price'] || "";
+                        
+                     doc.text(invoiced.toString(), 1.0, y[i]);
+					 doc.text(invoice_nbr.toString(), 2.0, y[i]);
+     				doc.text(code.toString(), 3.0, y[i]);
+     				doc.text(quantity.toString(), 4.3, y[i]);
+     				doc.text(reason.toString(), 5.2, y[i]);
+     				doc.text(net_price.toString(), 7.0, y[i]);     
+               	 }                        
+                    
 	var src = doc.output();     
-         
-// doc.output('dataurlnewwindow');
-// doc.save('Test.pdf');    
-     
+    console.log(src.length);
 	window.plugin.email.open({
-    	to:      ['pub-pdf@bmedley.org'],
+    	to:      [window.localStorage.getItem("email")],
 	    subject: 'Prepared PDF',
     	body:    'Parts return',
         attachments: ["base64:parts_return.pdf//" + btoa(src)]
 	});
-             
-    // window.location.href = "mailto:ron@medleyautobody.com?subject=Prepared%20Hello&body=" + src;
-     // window.open(src, '_blank');
-         
-     //$("#modalview-pdf").kendoMobileModalView("open");
-     //$('#the-pdf').attr('data', src);         
-     // $('#the-pdf').css("-webkdit-transform", "scale(" + 1.63 + ")"); $('#the-pdf').css("zoom", "0.63")
+                    
+                }, function (tx, err) { alert("tx error: " + err.message) });             
+         });         
      },         
         
      dataInit: function () {

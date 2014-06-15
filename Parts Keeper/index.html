@@ -78,7 +78,7 @@
 	</script>
     
     <script type="text/x-kendo-template" id="reportTemplate">
-        <a class="touch" data-click="app.report.generate" data-prepared="#:prepared#">#:idx# - #: prepared #</a> <a data-role="detailbutton" data-style="detaildisclose"></a>
+        <a class="touch" data-prepared="#:prepared#">#:idx# - #: prepared #</a> <a data-role="detailbutton" data-style="detaildisclose"></a>
 	</script>
 
 <style scoped>
@@ -171,7 +171,7 @@
     </form>
 </div>    
     
-<div data-role="view" id="edit-prepared" class="appearance">
+<div data-role="view" id="edit-prepared" class="appearance" data-show="app.report.showPrepared">
     <header data-role="header">
         <div data-role="navbar">
             <span data-role="view-title">Dates</span>
@@ -211,8 +211,22 @@
         </div>
     </div>    
     
-    <div id="tabstrip-settings" data-role="view" data-title="Settings" data-layout="tabstrip-settings-layout">
-        Settings here.
+    <div id="tabstrip-settings" data-role="view" data-title="Settings" data-show="app.aboutPage.showSettings" data-layout="tabstrip-settings-layout" class="appearance">
+    <header data-role="header">
+        <div data-role="navbar">
+            <a class="nav-button" data-align="left" data-role="backbutton" id="cancel">Cancel</a>
+            <span data-role="view-title"></span>
+            <a class="nav-button" data-align="right" data-role="button" id="done" data-click="app.aboutPage.saveSettings">Save</a>
+        </div>
+    </header>
+
+        <ul data-role="listview" data-style="inset" onclick="">            
+            <li>
+                <label>Email address
+                    <input id="the-email" type="email" />
+                </label>                
+            </li>            
+        </ul>
     </div>    
     
     <div id="tabstrip-report" data-role="view" data-title="Report" data-layout="tabstrip-layout" data-show="app.report.dataShow" data-init="app.report.dataInit">
