@@ -205,12 +205,6 @@
 }    
 </style>
     
-    <div id="tabstrip-about" data-role="view" data-title="Settings" data-layout="tabstrip-about-layout" data-show="app.aboutPage.dataShow">
-		<div id="aboutContainer">           
-        	<p id="information">Copyright &copy; Sparks and Magic<br>http://sparksandmagic.com</p>
-        </div>
-    </div>    
-    
     <div id="tabstrip-settings" data-role="view" data-title="Settings" data-show="app.aboutPage.showSettings" data-layout="tabstrip-settings-layout" class="appearance">
     <header data-role="header">
         <div data-role="navbar">
@@ -220,13 +214,18 @@
         </div>
     </header>
 
-        <ul data-role="listview" data-style="inset" onclick="">            
+        <ul id="email-listview" data-role="listview" data-style="inset" onclick="">            
             <li>
                 <label>Email address
                     <input id="the-email" type="email" />
                 </label>                
             </li>            
         </ul>
+
+		<div id="aboutContainer">           
+        	<p id="information">Copyright &copy; Sparks and Magic<br>http://sparksandmagic.com</p>
+        </div>
+
     </div>    
     
     <div id="tabstrip-report" data-role="view" data-title="Report" data-layout="tabstrip-layout" data-show="app.report.dataShow" data-init="app.report.dataInit">

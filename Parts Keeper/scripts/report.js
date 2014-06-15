@@ -151,8 +151,8 @@
                     
 					for (var i = 0; i < result.rows.length; i++) {
                     code = result.rows.item(i)['code'];
-                    prepared = result.rows.item(i)['prepared'];
-                    invoiced = result.rows.item(i)['invoiced'];
+                    prepared = result.rows.item(i)['prepared'] || "";
+                    invoiced = result.rows.item(i)['invoiced'] || "";
                     invoice_nbr = result.rows.item(i)['invoice_nbr'] || "";
 					quantity = result.rows.item(i)['quantity'] || "";
                     reason = result.rows.item(i)['reason'] || "";

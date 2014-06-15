@@ -20,6 +20,9 @@
         
         showSettings: function () {
             $('#the-email').val(window.localStorage.getItem("email"));
+					var inner = document.getElementById("information");
+            		// alert($('#middle').height() + " :: " + $('#btn-scan').height() + " :: " + $('#tabstrip-scan').height());
+            		inner.style.marginTop = (($('#tabstrip-settings').height() / 2) - $('#information').height() - $('#email-listview').outerHeight(true))  + "px";
         },
         
         saveSettings: function () {
