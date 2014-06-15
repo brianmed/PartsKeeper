@@ -30,7 +30,7 @@
         function defaults() {        
     	app.db.handle.transaction(function(tx) {
                 var d = new Date();
-        	    function pad(n){return n<10 ? '-0'+n : '-n'}
+        	    function pad(n){return n<10 ? '-0'+n : '-'+n}
 		    	var str = d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate());
 
         		tx.executeSql("INSERT INTO barcode (code, format, prepared, invoiced) VALUES (?, ?, ?, ?)", ['012334567', 'C', str, str], function () { return true; }, function (tx, err) { alert("tx error: " + err.message) });
