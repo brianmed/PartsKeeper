@@ -17,10 +17,6 @@
     <script src="scripts/report.js"></script>
     
 	<script src="scripts/lib/jspdf.js"></script>
-<!--	<script src="../jspdf.plugin.addimage.js"></script>
-	<script src="../jspdf.plugin.standard_fonts_metrics.js"></script>
-	<script src="../jspdf.plugin.split_text_to_size.js"></script>
-	<script src="../jspdf.plugin.from_html.js"></script>  -->  
 </head>
 <body>
     
@@ -52,7 +48,7 @@
                 </ul>
             </div>
         
-            <style scoped>
+     <style scoped>
         .buttonAppearance .km-button:not(.km-back)
         {
             width: 90%;
@@ -159,11 +155,6 @@
                     <input type="text" id="net-price" />
                 </label>
             </li>
-            	<!--
-                <li>
-                    <center><div id="tap-pdf" data-enable-swipe="1" data-touchstart="app.barcode.pdf" data-role="touch" style="font-size: 1.5em">PDF</div></center>
-                </li>
-            	-->
                 <li>
                     <center><div id="tap-delete" data-enable-swipe="1" data-touchstart="app.barcode.touchstart" data-min-hold="1800" data-hold="app.barcode.delete" data-role="touch" style="font-size: 1.5em">Hold to delete</div></center>
                 </li>                        
@@ -174,7 +165,7 @@
 <div data-role="view" id="edit-prepared" class="appearance" data-show="app.report.showPrepared">
     <header data-role="header">
         <div data-role="navbar">
-            <span data-role="view-title">Dates</span>
+            <span data-role="view-title">Report</span>
         </div>
     </header>
 
@@ -183,11 +174,6 @@
                 <li>
                     <center><div id="tap-pdf" data-enable-swipe="1" data-touchstart="app.report.emailPdf" data-role="touch" style="font-size: 1.5em">Email PDF</div></center>
                 </li>
-                <!--
-            	<li>
-                    <center><div id="tap-print" data-enable-swipe="1" data-touchstart="app.report.showlPdf" data-role="touch" style="font-size: 1.5em">View PDF</div></center>
-                </li>
-            	-->
         </ul>
     </form>
 </div>           
@@ -299,20 +285,5 @@
             </div>
         </div>
     </div>
-
-    <div data-role="modalview" id="modalview-pdf" style="width: 90%; height: 70%;">
-        <div data-role="header">
-            <div data-role="navbar">
-            <a data-click="app.barcode.pdfClose" data-role="button" data-align="left">Close</a>            
-            <span>Parts</span>
-            <a data-bind="click: app.barcode.pdfSave" data-role="button" data-align="right">Save</a>                                                
-            </div>
-        </div>
-        
-        
-        <div style="overflow: scroll !important;-webkit-overflow-scrolling:touch !important;">
-    		<object id="the-pdf" type="application/pdf" style="width: 9in; height: 11.5in;"></object>       
-		</div>               
-    </div>       
 </body>
 </html>

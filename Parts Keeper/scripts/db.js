@@ -18,7 +18,6 @@
                 		"reason TEXT, " +
                 		"net_price TEXT" +
                 ")");
-                // tx.executeSql("CREATE TABLE IF NOT EXISTS note (id INTEGER PRIMARY KEY ASC, note TEXT, barcode_id REFERENCES barcode (id))");
     		});
 		}        
     });

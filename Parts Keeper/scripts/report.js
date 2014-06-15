@@ -11,18 +11,13 @@
         },
                         
         dataShow: function () {               
-         // alert("all.report.dataShow");
          app.report.dataSource.data([]);
          
          app.db.handle.transaction(function(tx) {
          tx.executeSql("SELECT DISTINCT prepared FROM barcode ORDER BY 1 DESC", [],
                 function(tx, result) {
-                    // alert(result.rows.length);
-                    // console.log(result);
                 for (var i = 0; i < result.rows.length; i++) {
-                    // console.log(result);
                     var prepared = result.rows.item(i)['prepared'];
-                    // alert(i + " :: " + prepared);	
                     app.report.dataSource.add({idx: i+1, prepared: prepared});                  
                     }                    
                 }, function (tx, err) { alert("tx error: " + err.message); });             
@@ -141,6 +136,10 @@
     		opacity:'1',
     	 });         
 
+         if (!window.localStorage.getItem("email")) {
+             alert("Please setup an email address");
+             return;
+         }         
 
          app.db.handle.transaction(function(tx) {
              var prepared = $('#tap-pdf').data("prepared");
@@ -170,8 +169,8 @@
     console.log(src.length);
 	window.plugin.email.open({
     	to:      [window.localStorage.getItem("email")],
-	    subject: 'Prepared PDF',
-    	body:    'Parts return',
+	    subject: 'Prepared PDF for ' + prepared,
+    	body:    'Parts return for ' + prepared,
         attachments: ["base64:parts_return.pdf//" + btoa(src)]
 	});
                     

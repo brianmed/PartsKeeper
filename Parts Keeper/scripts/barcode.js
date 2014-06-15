@@ -78,9 +78,6 @@
          
             kendo.mobile.application.navigate("#:back");
      },
-     pdfClose: function () {
-         $("#modalview-pdf").kendoMobileModalView("close");                    
-     },
                 
      touchstart: function () {
 	 	$("#tap-delete").animate({
@@ -92,31 +89,7 @@
 
      },
      
-     pdf: function() {
-     var doc = new jsPDF();
-     
-     doc.rec(1, 1, 20, 20);
-         
-//doc.text(20, 20, 'Hello world!');
-//doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
-//doc.addPage();
-//doc.text(20, 20, 'Do you like that?');
-         
-	var src = doc.output('datauristring');     
-         
-// doc.output('dataurlnewwindow');
-// doc.save('Test.pdf');    
-         
-     $("#modalview-pdf").kendoMobileModalView("open");
-     $('#the-pdf').attr('data', src);         
-     // $('#the-pdf').css("-webkit-transform", "scale(" + 1.63 + ")"); $('#the-pdf').css("zoom", "0.63")
-     },
-        
-     dataShow: function () {      
-         
-         //var data = new Array();
-         //console.log("dataShow");
-         
+     dataShow: function () {               
          app.barcode.dataSource.data([]);
          
          app.db.handle.transaction(function(tx) {
@@ -133,22 +106,9 @@
                     }
                     dates[prepared]++;
                     app.barcode.dataSource.add({id: id, code: code, format: format, idx: dates[prepared], prepared: prepared});                  
-                    
-                    // data.push({ code: code });
-                    }                    
-                    // $("#theList").destroy();
-                    //  $("#theList").html("");
-
-                    // $("#theList").data("kendoMobileListView").setDataSource(app.barcode.dataSource);
-                             
-        	//var template = kendo.template();
-	        //var result = template(data); //Execute the template           
-			//$("#theList").html(result);                                
-                }, function (tx, err) { alert("tx error: " + err.message) });
-             
+                }                    
+            }, function (tx, err) { alert("tx error: " + err.message) });             
         });         
         }                
     });
-    
-	// dataSource.sync();
 })();

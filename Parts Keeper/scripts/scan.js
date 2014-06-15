@@ -2,7 +2,6 @@
     app.scan = kendo.observable({
         dataShow: function () {
 					var inner = document.getElementById("middle");
-            		// alert($('#middle').height() + " :: " + $('#btn-scan').height() + " :: " + $('#tabstrip-scan').height());
             		inner.style.marginTop = (($('#tabstrip-scan').height() / 2) - $('#middle').height())  + "px";
         },
         
